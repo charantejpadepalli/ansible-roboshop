@@ -1,0 +1,34 @@
+- name: create ec2 and route 53
+  hosts: local
+  connection: local
+  become: yes
+  vars:
+    ami_id: "ami-09c813fb71547fc4f"
+    sg_id: "sg-007348acaafd7df1b" 
+    zone_id: "Z07634881IMZZFH5TBV0T"
+    domain_name: "devopspractice.shop"
+    instance:
+    - mongodb
+  
+  tasks:
+  - name: create ec2 instance
+    amazon.aws.ec2_instance:
+      name: "{{ item }}"
+      instance_type: t3.micro
+      image_id: "{{ ami_id }}"
+      secuirity_group: "{{ sg_id }}"
+      tags: 
+        Name: "{{ item }}"
+    loop: "{{ instance }}"
+
+  - name: create route 53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}. {{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instance[0].private_ip_address }}"
+      overwrite: true
+    loop: "{{ ec2_instance.results }}"
+
