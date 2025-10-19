@@ -7,9 +7,10 @@
     sg_id: "sg-007348acaafd7df1b" 
     zone_id: "Z07634881IMZZFH5TBV0T"
     domain_name: "devopspractice.shop"
-    instance:
-    - mongodb
-  
+    # instance:
+    # - mongodb
+    #we can pass instances through command line using -e 
+   # ansible-playbook 01-ec2-r53.yaml -e "instance=['mongodb','mysql','redis','rabbitmq']"
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
