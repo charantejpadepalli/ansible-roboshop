@@ -1,5 +1,5 @@
-- name: setup catalogue server
-  hosts: catalogue
+- name: setup user server
+  hosts: user
   become: yes
   tasks:
   - name: disable default nodejs
@@ -31,19 +31,19 @@
       state: directory
       path: /app
 
-  - name: Delete Catalogue file if exists
+  - name: Delete user file if exists
     ansible.builtin.file:
-      path: /tmp/catalogue.zip
+      path: /tmp/user.zip
       state: absent
   
-  - name: download catalogue Application
+  - name: download user Application
     ansible.builtin.get_url:
-      url: https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
-      dest: /tmp/catalogue.zip
+      url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
+      dest: /tmp/user.zip
     
-  - name: extract catalogue Application
+  - name: extract user Application
     ansible.builtin.unarchieve:
-      src: /tmp/catalogue.zip
+      src: /tmp/user.zip
       dest: /app
       remote_src: yes
 
@@ -51,27 +51,14 @@
     community.general.npm:
       path: /app
   
-  - name: copy catalogue service
+  - name: copy user service
     ansible.builtin.copy:
-      src: catalogue.service
-      dest: /etc/systemd/system/catalogue.service
-
-  - name: install mongodb client
-    ansible.builtin.package:
-      name: mongodb-mongosh
-      state: present
-    
-  - name: connecto to mongodb catalogue 
-    ansible.builtin.command: mongosh mongodb.devopspractice.shop --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
-    register: catalogue_output
-
-  - name: load prodcuts into mongodb 
-    ansible.builtin.shell: mongosh --host mongodb.devopspractice.shop </app/db/master-data.js
-    when: catalogue_output.stdout | int < 0
+      src: user.service
+      dest: /etc/systemd/system/user.service
 
   - name: daemon reload enable and start
     ansible.builtin.systemd_service:
-      name: catalogue
+      name: user
       state: started
       enabled: true
       daemon_reload: true
