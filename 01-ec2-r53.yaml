@@ -30,7 +30,7 @@
       ttl: 1
       value: "{{ item.instance[0].private_ip_address }}"
       overwrite: true
-    loop: "{{ ec2_instance.results }}"
+    loop: "{{ ec2_output.results }}"
 
   - name: create route 53 record for frontned
     amazon.aws.route53:
@@ -42,5 +42,5 @@
       value: "{{ item.instance[0].public_ip_address }}"
       overwrite: true
     when: item.item == "frontend"
-    loop: "{{ ec2_instance.results }}"
+    loop: "{{ ec2_output.results }}"
 
