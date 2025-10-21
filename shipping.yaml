@@ -77,7 +77,7 @@
       target: "{{ item }}"
     loop:
     - /app/db/schema.sql
-    - /app/db/user.sql
+    - /app/db/app-user.sql
     - /app/db/master-data.sql
 
   - name: daemon reload enable and start
