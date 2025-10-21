@@ -3,6 +3,7 @@
   connection: local
   become: yes
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     ami_id: "ami-09c813fb71547fc4f"
     sg_id: "sg-007348acaafd7df1b" 
     zone_id: "Z07634881IMZZFH5TBV0T"
