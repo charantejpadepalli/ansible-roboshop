@@ -3,8 +3,8 @@
   connection: local
   become: yes
   vars:
-    ami_id: "ami-09c813fb71547fc4f"
-    sg_id: "sg-007348acaafd7df1b" 
+    ami_id: ami-09c813fb71547fc4f
+    sg_id: sg-007348acaafd7df1b
     zone_id: "Z07634881IMZZFH5TBV0T"
     domain_name: "devopspractice.shop"
     # instance:
