@@ -23,14 +23,14 @@
       path: /usr/share/nginx/html/
       state: directory
   
-  - name: download frontned Application
+  - name: download frontend Application
     ansible.builtin.get_url:
-      url: https://roboshop-artifacts.s3.amazonaws.com/frontned-v3.zip
-      dest: /tmp/frontned.zip
+      url: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+      dest: /tmp/frontend.zip
     
-  - name: extract frontned Application
+  - name: extract frontend Application
     ansible.builtin.unarchive:
-      src: /tmp/frontned.zip
+      src: /tmp/frontend.zip
       dest: /usr/share/nginx/html/
       remote_src: yes
 
