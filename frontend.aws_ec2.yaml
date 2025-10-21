@@ -3,7 +3,7 @@ regions:
 - us-east-1
 filters:
   tags:
-    name: frontned
+    name: frontend
     instance-stste-name: running
 hostnames:
   - private-ip-address
