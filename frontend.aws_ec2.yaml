@@ -4,7 +4,7 @@ regions:
 filters:
   tags:
     name: frontend
-    instance-stste-name: running
+    instance-state-name: running
 hostnames:
   - private-ip-address
 compose:
